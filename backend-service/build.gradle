@@ -6,7 +6,7 @@ dependencies {
 bootJar {
     doLast {
         copy {
-            from 'Dockerfile.template'
+            from 'Dockerfile.base'
             into '.'
 
             rename { 'Dockerfile' }

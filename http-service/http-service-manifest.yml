@@ -17,8 +17,9 @@ spec:
       containers:
         - name: http-service-container
           image: http-service
-          args:
-            - BACKEND_SERVICE_HOST=backend-service-service
+          env:
+            - name: BACKEND_SERVICE_HOST
+              value: backend-service-service
           ports:
             - containerPort: 8081
           imagePullPolicy: IfNotPresent
