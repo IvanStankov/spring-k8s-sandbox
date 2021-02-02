@@ -1,0 +1,4 @@
+rootProject.name = 'spring-k8s-sandbox'
+include 'http-service'
+include 'backend-service'
+

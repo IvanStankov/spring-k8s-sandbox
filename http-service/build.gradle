@@ -1,0 +1,14 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator',
+            'org.springframework.boot:spring-boot-starter-web'
+
+//    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+}
+
+bootBuildImage {
+    imageName 'http-service'
+}
+
+bootJar {
+    finalizedBy(bootBuildImage)
+}

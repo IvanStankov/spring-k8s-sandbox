@@ -1,0 +1,11 @@
+### Actuator
+GET http://localhost:8080/actuator
+
+### Actuator
+GET http://localhost:8080/actuator/health/liveness
+
+### Actuator
+GET http://localhost:8080/actuator/health/readiness
+
+###
+GET http://localhost:8080/http-service

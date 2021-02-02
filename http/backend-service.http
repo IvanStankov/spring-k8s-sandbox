@@ -1,0 +1,8 @@
+### Actuator
+GET http://localhost:8081/actuator
+
+### Get number
+GET http://localhost:8081/random/number
+
+### Get string
+GET http://localhost:8081/random/string

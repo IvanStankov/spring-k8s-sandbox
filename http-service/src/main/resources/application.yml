@@ -1,0 +1,2 @@
+backend-service:
+  url: http://${BACKEND_SERVICE_HOST:localhost}:8081/random/number

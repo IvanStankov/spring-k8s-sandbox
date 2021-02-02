@@ -1,0 +1,24 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator',
+            'org.springframework.boot:spring-boot-starter-web'
+}
+
+bootJar {
+    doLast {
+        copy {
+            from 'Dockerfile.template'
+            into '.'
+
+            rename { 'Dockerfile' }
+            expand JAR_NAME: jar.archiveFileName.get()
+        }
+
+        exec {
+            commandLine 'cmd', '/c', 'docker build -t backend-service .'
+        }
+    }
+}
+
+clean {
+    delete 'Dockerfile'
+}
