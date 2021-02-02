@@ -1,0 +1,15 @@
+backend:
+  replicaCount: 2
+  requests:
+    memory: 150Mi
+  limits:
+    memory: 200Mi
+    cpu: 250m
+
+frontend:
+  replicaCount: 1
+  requests:
+    memory: 200Mi
+  limits:
+    memory: 800Mi # it won't start with less memory because of some JVM args that bootBuildImage sets
+    cpu: 500m

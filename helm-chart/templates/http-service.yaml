@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-http-service-deployment
+  labels:
+    app: frontend
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: http-service-container
+          image: http-service
+          env:
+            - name: BACKEND_SERVICE_HOST
+              value: {{ .Release.Name }}-backend-service-service
+          ports:
+            - containerPort: 8081
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            periodSeconds: 30 # Default is 10
+            failureThreshold: 1 # Default is 3
+            initialDelaySeconds: 4
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            periodSeconds: 5 # Default is 10
+          resources:
+            requests:
+              memory: {{ .Values.frontend.requests.memory }}
+            limits:
+              memory: {{ .Values.frontend.limits.memory }}
+              cpu: {{ .Values.frontend.limits.cpu }}
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-http-service-service
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: frontend
+  ports:
+    - port: 8080
+      targetPort: 8080

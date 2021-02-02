@@ -19,9 +19,16 @@
 - Docker
 - Kubernetes
 #### Commands
+##### Kubernetes
 ```
 gradle clean build
 kubectl apply -f http-service/http-service-manifest.yml ^
               -f backend-service/backend-service-manifest.yml
-
+kubectl delete -f http-service/http-service-manifest.yml ^
+              -f backend-service/backend-service-manifest.yml
+```
+##### Helm
+```
+helm install sks-app ./helm-chart
+helm uninstall sks-app
 ```
